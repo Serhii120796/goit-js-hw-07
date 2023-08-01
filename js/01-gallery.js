@@ -34,6 +34,7 @@ if (evt.target === evt.currentTarget) {
   const modalWindow = basicLightbox.create(`
     <img src="${currentLink.href}" width="800" height="600">
 `)
+  
   modalWindow.show()
   
  document.addEventListener('keydown', closeModalWindow);

@@ -5,18 +5,23 @@ const gallery = document.querySelector('.gallery');
 
 createMarcup(galleryItems);
 
-function createMarcup(arr) {
+gallery.insertAdjacentHTML('beforeend', createMarcup(galleryItems));
 
-    const marcup = arr.map(({ preview, original, description }) => `
+function createMarcup(arr) {
+  return arr
+    .map(
+      ({ preview, original, description }) => `
 <li class="gallery__item">
    <a class="gallery__link" href="${original}">
       <img class="gallery__image" src="${preview}" alt="${description}" />
    </a>
 </li>
-    `).join('');
-
-    gallery.insertAdjacentHTML('beforeend', marcup);
-
+    `,
+    )
+    .join('');
 }
 
-var lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250});
+var lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
