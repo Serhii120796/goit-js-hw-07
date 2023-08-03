@@ -3,8 +3,6 @@ import { galleryItems } from './gallery-items.js';
 
 const gallery = document.querySelector('.gallery');
 
-createMarcup(galleryItems);
-
 gallery.insertAdjacentHTML('beforeend', createMarcup(galleryItems));
 
 function createMarcup(arr) {

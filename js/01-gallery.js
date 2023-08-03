@@ -8,9 +8,10 @@ gallery.addEventListener('click', onClick);
 gallery.insertAdjacentHTML('beforeend', createMarcup(galleryItems));
 
 function createMarcup(arr) {
-return arr.map(
-    ({ preview, original, description }) =>
-      `<li class="gallery__item">
+  return arr
+    .map(
+      ({ preview, original, description }) =>
+        `<li class="gallery__item">
         <a class="gallery__link" href="${original}">
             <img class="gallery__image"
               src="${preview}" 
@@ -18,32 +19,35 @@ return arr.map(
               alt="${description}"/>
         </a>
        </li>`,
-  )
-  .join('');
+    )
+    .join('');
 }
 
 function onClick(evt) {
-if (evt.target === evt.currentTarget) {
+  if (evt.target === evt.currentTarget) {
     return;
-}
-  
+  }
+
   evt.preventDefault();
 
   const currentLink = evt.target.closest('.gallery__link');
-  
-  const modalWindow = basicLightbox.create(`
+
+  const modalWindow = basicLightbox.create(
+    `
     <img src="${currentLink.href}" width="800" height="600">
-`)
-  
-  modalWindow.show()
-  
- document.addEventListener('keydown', closeModalWindow);
+`,
+    {
+      onShow: () => document.addEventListener('keydown', closeModalWindow),
+      onClose: () => document.removeEventListener('keydown', closeModalWindow)
+    }
+  );
+
+  modalWindow.show();
 
   function closeModalWindow(evt) {
-  if (evt.code === "Escape") {
-    modalWindow.close();
+    if (evt.code === 'Escape') {
+      modalWindow.close();
+      console.log(evt.code);
     }
   }
 }
-  
- 
